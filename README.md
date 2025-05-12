@@ -1,61 +1,153 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+StayFinder 🏡
+StayFinder est une application web de réservation de biens immobiliers courte durée, développée dans le cadre d’un test technique. Ce projet a été conçu avec Laravel, Livewire, TailwindCSS, Filament et Breeze, afin de démontrer la mise en œuvre d’un système complet de gestion, de réservation et d’administration.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+✨ Fonctionnalités
+🔐 Authentification des utilisateurs (Laravel Breeze)
 
-## About Laravel
+📋 Liste des biens disponibles à la réservation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+📅 Réservation de biens avec sélection de dates
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+👤 Espace utilisateur pour consulter ou annuler ses réservations
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+🛠️ Interface d'administration (Filament) pour gérer les biens et réservations
 
-## Learning Laravel
+🎨 Interface responsive avec Blade + TailwindCSS
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+🚀 Technologies utilisées
+Laravel 10
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Laravel Breeze
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Livewire
 
-## Laravel Sponsors
+Filament Admin Panel
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+TailwindCSS
 
-### Premium Partners
+MySQL
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+Blade
 
-## Contributing
+⚙️ Installation du projet
+1. Prérequis
+Assurez-vous d'avoir installé :
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+PHP >= 8.1
 
-## Code of Conduct
+Composer
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Node.js & npm
 
-## Security Vulnerabilities
+MySQL
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Git
 
-## License
+2. Cloner et installer
+bash
+Copier
+Modifier
+git clone https://github.com/votre-utilisateur/stayfinder.git
+cd stayfinder
+composer install
+npm install && npm run dev
+cp .env.example .env
+php artisan key:generate
+Configurez votre base de données dans le fichier .env, puis lancez :
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+bash
+Copier
+Modifier
+php artisan migrate
+🔐 Authentification
+L’authentification est gérée via Laravel Breeze (version Blade). Les utilisateurs peuvent :
+
+S’inscrire
+
+Se connecter
+
+Accéder à leur espace de réservations
+
+Réserver un bien
+
+Annuler une réservation
+
+🏠 Gestion des biens
+Un bien possède :
+
+Un nom
+
+Une description
+
+Un prix par nuit
+
+Une image
+
+Une relation avec les réservations
+
+Extrait de migration :
+
+php
+Copier
+Modifier
+Schema::create('properties', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->text('description');
+    $table->decimal('price_per_night', 8, 2);
+    $table->timestamps();
+});
+📆 Réservation avec Livewire
+Le composant Livewire permet de :
+
+Choisir une période
+
+Valider la réservation en AJAX
+
+Annuler une réservation sans recharger la page
+
+bash
+Copier
+Modifier
+php artisan make:livewire BookingManager
+🧑‍💼 Interface Admin (Filament)
+L’espace admin est accessible aux administrateurs et permet de :
+
+Gérer les biens : créer, modifier, supprimer
+
+Gérer les réservations
+
+Visualiser les données de manière simple et efficace
+
+📸 Aperçu du projet
+Interface utilisateur :
+
+Admin panel :
+
+Réservation effectuée :
+
+✅ Fonctionnalités restantes à implémenter
+Envoi de notifications mail
+
+Gestion des indisponibilités
+
+Règles de validation plus poussées
+
+📤 Livrables
+Ce projet répond aux attentes suivantes :
+
+✔️ Authentification fonctionnelle (Breeze)
+
+✔️ Gestion des biens & réservations (CRUD + relations)
+
+✔️ UI utilisateur avec Blade + Tailwind
+
+✔️ Composant Livewire dynamique
+
+✔️ Admin Panel avec Filament
+
+📧 Contact
+Développé par Amine Barradouane
+📬 amine.barradouane@gmail.com
+
+
