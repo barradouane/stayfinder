@@ -1,5 +1,5 @@
 StayFinder 🏡
-StayFinder est une application web de réservation de biens immobiliers courte durée, développée dans le cadre d’un test technique. Ce projet a été conçu avec Laravel, Livewire, TailwindCSS, Filament et Breeze, afin de démontrer la mise en œuvre d’un système complet de gestion, de réservation et d’administration.
+StayFinder est une application web de réservation de biens immobiliers. Ce projet a été conçu avec Laravel, Livewire, TailwindCSS, Filament et Breeze, afin de démontrer la mise en œuvre d’un système complet de gestion, de réservation et d’administration.
 
 ✨ Fonctionnalités
 🔐 Authentification des utilisateurs (Laravel Breeze)
