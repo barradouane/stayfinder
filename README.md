@@ -91,7 +91,6 @@ StayFinder est une application web de réservation de biens immobiliers, conçue
 ## 📤 Livrables
 
 - Code source complet (controllers, models, vues, composants, resources Filament, composant Livewire)  
-- Documentation (ce README) décrivant chaque partie  
 - UI fonctionnelle pour visiteur, utilisateur et admin  
 
 ---
