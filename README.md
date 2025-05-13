@@ -1,135 +1,104 @@
-StayFinder 🏡
-StayFinder est une application web de réservation de biens immobiliers. Ce projet a été conçu avec Laravel, Livewire, TailwindCSS, Filament et Breeze, afin de démontrer la mise en œuvre d’un système complet de gestion, de réservation et d’administration.
+# StayFinder 🏡
 
-✨ Fonctionnalités
-🔐 Authentification des utilisateurs (Laravel Breeze)
+StayFinder est une application web de réservation de biens immobiliers, conçue pour offrir à la fois une expérience fluide pour le visiteur et un back-office complet pour l’administrateur.  
 
-📋 Liste des biens disponibles à la réservation
+---
 
-📅 Réservation de biens avec sélection de dates
+## ✨ Fonctionnalités principales
 
-👤 Espace utilisateur pour consulter ou annuler ses réservations
+- **Exploration de biens**  
+  Affichage d’une grille responsive de cartes de propriétés (image, titre, description courte, prix à la nuit).  
 
-🛠️ Interface d'administration (Filament) pour gérer les biens et réservations
+- **Réservation**  
+  Formulaire de réservation intégré à la page, avec validation des dates.  
 
-🎨 Interface responsive avec Blade + TailwindCSS
+- **Mes Réservations**  
+  Espace utilisateur pour consulter, accéder au détail et annuler ses réservations.  
 
-🚀 Technologies utilisées
-Laravel 10
+- **Administration des biens**  
+  CRUD complet des propriétés (titre, description, prix, image) via un panel Filament sécurisé.  
 
-Laravel Breeze
+---
 
-Livewire
+## 🚀 Architecture et composants
 
-Filament Admin Panel
+### Modèles (Eloquent)
 
-TailwindCSS
+- **Property**  
+  Définit un bien avec :  
+  - `name`, `description`, `price_per_night`, `image`  
+  - Mass-assignment autorisé via `$fillable`  
+  - Casting du prix en `float`  
 
-MySQL
+- **Booking**  
+  Représente une réservation :  
+  - `user_id`, `property_id`, `start_date`, `end_date`  
+  - Relations `user()` et `property()`  
+  - Conversion des dates en objets Carbon via `$casts`  
 
-Blade
+- **User**  
+  Utilisateur Breeze + booléen `is_admin` pour l’accès admin.  
+  Relation `bookings()` pour retrouver ses réservations.  
 
-⚙️ Installation du projet
-1. Prérequis
-Assurez-vous d'avoir installé :
+### Routes & Contrôleurs
 
-PHP >= 8.1
+- **Front public**  
+  - `/` → `PropertyController@index` (liste)  
+  - `/properties/{property}` → `PropertyController@show` (détail)  
 
-Composer
+- **Réservation (auth)**  
+  - `GET  /properties/{property}/bookings/create` → formulaire (`BookingController@create`)  
+  - `POST /properties/{property}/bookings`       → enregistrement (`BookingController@store`)  
 
-Node.js & npm
+- **Mes Réservations (auth)**  
+  - `GET    /bookings`           → liste (`BookingController@index`)  
+  - `DELETE /bookings/{booking}` → annulation (`BookingController@destroy`)  
 
-MySQL
+- **Admin (auth + is_admin)**  
+  Filament se charge des routes `/admin/...` pour la gestion des biens.  
 
-Git
+### Vues & Composants Blade
 
-2. Cloner et installer
-bash
-git clone https://github.com/votre-utilisateur/stayfinder.git
-cd stayfinder
-composer install
-npm install && npm run dev
-cp .env.example .env
-php artisan key:generate
+- **Layout principal**  
+  Header fixe, navigation adaptative (visiteur/utilisateur/admin), contenu central, footer épuré.  
 
-🔐 Authentification
-L’authentification est gérée via Laravel Breeze (version Blade). Les utilisateurs peuvent :
+- **Composant `<x-button>`**  
+  Générique, prend en charge `<a>` ou `<button>`, props `href`, `color`, `type`.  
 
-S’inscrire
+- **Composant `<x-property-card>`**  
+  Carte de bien : image, titre, description tronquée, prix, bouton “Réserver”.  
 
-Se connecter
+- **Pages de réservation**  
+  - `bookings/create.blade.php` : injection du composant Livewire `<livewire:booking-manager>`.  
+  - `bookings/index.blade.php` : affichage des réservations de l’utilisateur.  
 
-Accéder à leur espace de réservations
+### Back-office Filament
 
-Réserver un bien
+- **Resource Property**  
+  - Formulaire : champs `name`, `description`, `price_per_night`, upload d’`image`.  
+  - Table : colonnes vignettes, nom, tarif.  
+- **Sécurité**  
+  Gate `viewFilament` (utilisateur `is_admin`), guard `web` de Breeze.  
 
-Annuler une réservation
+### Interactivité Livewire
 
-🏠 Gestion des biens
-Un bien possède :
+- **Composant `BookingManager`**  
+  - Propriétés : `$property`, `$start_date`, `$end_date`  
+  - Validation en temps réel, soumission AJAX, redirection vers “Mes Réservations”.  
 
-Un nom
+---
 
-Une description
+## 📤 Livrables
 
-Un prix par nuit
+- Code source complet (controllers, models, vues, composants, resources Filament, composant Livewire)  
+- Documentation (ce README) décrivant chaque partie  
+- UI fonctionnelle pour visiteur, utilisateur et admin  
 
-Une image
+---
 
-Une relation avec les réservations
+## 📧 Auteur
 
-Extrait de migration :
-
-php
-
-📆 Réservation avec Livewire
-Le composant Livewire permet de :
-
-Choisir une période
-
-Valider la réservation en AJAX
-
-Annuler une réservation sans recharger la page
-
-php artisan make:livewire BookingManager
-🧑‍💼 Interface Admin (Filament)
-L’espace admin est accessible aux administrateurs et permet de :
-
-Gérer les biens : créer, modifier, supprimer
-
-Gérer les réservations
-
-Visualiser les données de manière simple et efficace
-
-📸 Aperçu du projet
-Interface utilisateur :
-
-Admin panel :
-
-Réservation effectuée :
-
-✅ Fonctionnalités restantes à implémenter
-Envoi de notifications mail
-
-Gestion des indisponibilités
-
-Règles de validation plus poussées
-
-📤 Livrables
-Ce projet répond aux attentes suivantes :
-
-✔️ Authentification fonctionnelle (Breeze)
-
-✔️ Gestion des biens & réservations (CRUD + relations)
-
-✔️ UI utilisateur avec Blade + Tailwind
-
-✔️ Composant Livewire dynamique
-
-✔️ Admin Panel avec Filament
-
-📧 Contact
-Développé par Amine Barradouane
-📬 amine.barradouane@gmail.com
+**Amine Barradouane**  
+amine.barradouane@gmail.com  
 
 
