@@ -45,20 +45,13 @@ Git
 
 2. Cloner et installer
 bash
-Copier
-Modifier
 git clone https://github.com/votre-utilisateur/stayfinder.git
 cd stayfinder
 composer install
 npm install && npm run dev
 cp .env.example .env
 php artisan key:generate
-Configurez votre base de données dans le fichier .env, puis lancez :
 
-bash
-Copier
-Modifier
-php artisan migrate
 🔐 Authentification
 L’authentification est gérée via Laravel Breeze (version Blade). Les utilisateurs peuvent :
 
@@ -88,15 +81,7 @@ Une relation avec les réservations
 Extrait de migration :
 
 php
-Copier
-Modifier
-Schema::create('properties', function (Blueprint $table) {
-    $table->id();
-    $table->string('name');
-    $table->text('description');
-    $table->decimal('price_per_night', 8, 2);
-    $table->timestamps();
-});
+
 📆 Réservation avec Livewire
 Le composant Livewire permet de :
 
@@ -106,9 +91,6 @@ Valider la réservation en AJAX
 
 Annuler une réservation sans recharger la page
 
-bash
-Copier
-Modifier
 php artisan make:livewire BookingManager
 🧑‍💼 Interface Admin (Filament)
 L’espace admin est accessible aux administrateurs et permet de :
